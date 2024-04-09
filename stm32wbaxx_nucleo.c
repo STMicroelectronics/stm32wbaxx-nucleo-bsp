@@ -336,7 +336,7 @@ int32_t BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
   }
 
   GPIO_Init.Pin   = BUTTON_PIN[Button];
-  GPIO_Init.Pull  = GPIO_NOPULL;
+  GPIO_Init.Pull  = GPIO_PULLUP;
   GPIO_Init.Speed = GPIO_SPEED_FREQ_HIGH;
 
   if (ButtonMode == BUTTON_MODE_GPIO)
