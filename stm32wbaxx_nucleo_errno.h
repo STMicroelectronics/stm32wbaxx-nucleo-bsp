@@ -38,6 +38,11 @@ extern "C" {
 #define BSP_ERROR_MSP_FAILURE            -10
 #define BSP_ERROR_FEATURE_NOT_SUPPORTED  -11
 
+/* BSP XSPI error codes */
+#define BSP_ERROR_XSPI_SUSPENDED             -20
+#define BSP_ERROR_XSPI_MMP_LOCK_FAILURE      -21
+#define BSP_ERROR_XSPI_MMP_UNLOCK_FAILURE    -22
+
 #ifdef __cplusplus
 }
 #endif

@@ -141,7 +141,7 @@ typedef struct
   */
 #define STM32WBAxx_NUCLEO_BSP_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
 #define STM32WBAxx_NUCLEO_BSP_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
-#define STM32WBAxx_NUCLEO_BSP_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
+#define STM32WBAxx_NUCLEO_BSP_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
 #define STM32WBAxx_NUCLEO_BSP_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define STM32WBAxx_NUCLEO_BSP_VERSION       ((STM32WBAxx_NUCLEO_BSP_VERSION_MAIN << 24U)\
                                             |(STM32WBAxx_NUCLEO_BSP_VERSION_SUB1 << 16U)\
@@ -180,6 +180,7 @@ typedef struct
 #define LD2_PIN                                GPIO_PIN_9
 #endif
 
+/* STM32WBA55xx - STM32WBA65xx */
 #define LD3_GPIO_PORT                          GPIOB
 #define LD3_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOB_CLK_ENABLE()
 #define LD3_PIN                                GPIO_PIN_8
@@ -192,6 +193,7 @@ typedef struct
   */
 #define BUTTONn                            3U
 
+/* STM32WBA55xx - STM32WBA65xx */
 #define B1_GPIO_PORT                       GPIOC
 #define B1_GPIO_CLK_ENABLE()               __HAL_RCC_GPIOC_CLK_ENABLE()
 #define B1_PIN                             GPIO_PIN_13
@@ -242,6 +244,7 @@ typedef struct
 #define COM1_UART                               USART1
 #define COM1_CLK_ENABLE()                       __HAL_RCC_USART1_CLK_ENABLE()
 #define COM1_CLK_DISABLE()                      __HAL_RCC_USART1_CLK_DISABLE()
+/* STM32WBA55xx - STM32WBA65xx */
 #define COM1_TX_GPIO_PORT                       GPIOB
 #define COM1_TX_GPIO_CLK_ENABLE()               __HAL_RCC_GPIOB_CLK_ENABLE()
 #define COM1_TX_PIN                             GPIO_PIN_12

@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    stm32wbaxx_nucleo_conf.h
+  * @file    stm32wbaxx_nucleo_conf_template.h
   * @author  MCD Application Team
   * @brief   STM32WBAXX nucleo board configuration file.
   *          This file should be copied to the application folder and renamed
