@@ -1,6 +1,6 @@
 # BSP STM32WBAXX-NUCLEO Component
 
-![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/stm32wbaxx-nucleo-bsp.svg?color=brightgreen)
+![tag](https://img.shields.io/badge/tag-v1.2.0-brightgreen.svg)
 
 ## Overview
 
