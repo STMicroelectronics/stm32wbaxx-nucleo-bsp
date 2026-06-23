@@ -65,6 +65,9 @@ typedef void (* BSP_EXTI_LineCallback)(void);
 static void B1_EXTI_Callback(void);
 static void B2_EXTI_Callback(void);
 static void B3_EXTI_Callback(void);
+static void B1_EXTI_Rising_Callback(void);
+static void B2_EXTI_Rising_Callback(void);
+static void B3_EXTI_Rising_Callback(void);
 
 #if (USE_BSP_COM_FEATURE == 1)
 static void UART_MspInit(UART_HandleTypeDef *huart);
@@ -375,6 +378,69 @@ int32_t BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
 }
 
 /**
+  * @brief  Configure Button GPIO and EXTI Line to generate interrupt on rising edge.
+  * @param  Button Specifies the Button to be configured.
+  *   This parameter should be:
+  *     @arg B1
+  *     @arg B2
+  *     @arg B3
+  * @retval BSP error code.
+  */
+int32_t BSP_PB_SetRisingEdge(Button_TypeDef Button)
+{
+  int32_t               status = BSP_ERROR_NONE;
+  GPIO_InitTypeDef      GPIO_Init;
+  uint32_t              BSP_BUTTON_IT_PRIO[BUTTONn] = {BSP_B1_IT_PRIORITY,
+                                                       BSP_B2_IT_PRIORITY,
+                                                       BSP_B3_IT_PRIORITY};
+  uint32_t              BUTTON_EXTI_LINE[BUTTONn]     = {B1_EXTI_LINE, B2_EXTI_LINE, B3_EXTI_LINE};
+  BSP_EXTI_LineCallback ButtonRisingCallback[BUTTONn] = {B1_EXTI_Rising_Callback,
+                                                         B2_EXTI_Rising_Callback,
+                                                         B3_EXTI_Rising_Callback};
+
+  /* Enable the BUTTON clock */
+  if (Button == B1)
+  {
+    B1_GPIO_CLK_ENABLE();
+  }
+  else if (Button == B2)
+  {
+    B2_GPIO_CLK_ENABLE();
+  }
+  else /* B3 */
+  {
+    B3_GPIO_CLK_ENABLE();
+  }
+
+  /* Configure Button pin as input with External interrupt on rising edge */
+  GPIO_Init.Pin   = BUTTON_PIN[Button];
+  GPIO_Init.Pull  = GPIO_PULLUP;
+  GPIO_Init.Speed = GPIO_SPEED_FREQ_HIGH;
+  GPIO_Init.Mode  = GPIO_MODE_IT_RISING;
+  HAL_GPIO_Init(BUTTON_PORT[Button], &GPIO_Init);
+
+  if (HAL_EXTI_GetHandle(&hpb_exti[Button], BUTTON_EXTI_LINE[Button]) == HAL_OK)
+  {
+    if (HAL_EXTI_RegisterCallback(&hpb_exti[Button], HAL_EXTI_RISING_CB_ID, ButtonRisingCallback[Button]) == HAL_OK)
+    {
+      /* Enable and set Button EXTI Interrupt priority */
+      HAL_NVIC_SetPriority(BUTTON_IRQn[Button], BSP_BUTTON_IT_PRIO[Button], 0x00);
+      HAL_NVIC_EnableIRQ(BUTTON_IRQn[Button]);
+    }
+    else
+    {
+      status = BSP_ERROR_PERIPH_FAILURE;
+    }
+  }
+  else
+  {
+    status = BSP_ERROR_PERIPH_FAILURE;
+  }
+
+  return status;
+}
+
+/**
   * @brief  DeInitialize Push Button.
   * @param  Button Button to be configured.
   *   This parameter should be:
@@ -429,6 +495,24 @@ __weak void BSP_PB_Callback(Button_TypeDef Button)
 
   /* This function should be implemented by the user application.
      It is called into this driver when an event on Button is triggered. */
+}
+
+/**
+  * @brief  BSP Push Button rising edge callback.
+  * @param  Button Specifies the pin connected EXTI line.
+  *   This parameter should be:
+  *     @arg B1
+  *     @arg B2
+  *     @arg B3
+  * @retval None.
+  */
+__weak void BSP_PB_RisingCallback(Button_TypeDef Button)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Button);
+
+  /* This function should be implemented by the user application.
+     It is called into this driver when a rising edge event on Button is triggered. */
 }
 
 /**
@@ -691,6 +775,33 @@ static void B2_EXTI_Callback(void)
 static void B3_EXTI_Callback(void)
 {
   BSP_PB_Callback(B3);
+}
+
+/**
+  * @brief  B1 EXTI line rising edge detection callback.
+  * @retval None.
+  */
+static void B1_EXTI_Rising_Callback(void)
+{
+  BSP_PB_RisingCallback(B1);
+}
+
+/**
+  * @brief  B2 EXTI line rising edge detection callback.
+  * @retval None.
+  */
+static void B2_EXTI_Rising_Callback(void)
+{
+  BSP_PB_RisingCallback(B2);
+}
+
+/**
+  * @brief  B3 EXTI line rising edge detection callback.
+  * @retval None.
+  */
+static void B3_EXTI_Rising_Callback(void)
+{
+  BSP_PB_RisingCallback(B3);
 }
 
 #if (USE_BSP_COM_FEATURE == 1)

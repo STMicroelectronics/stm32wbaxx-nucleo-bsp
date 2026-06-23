@@ -141,7 +141,7 @@ typedef struct
   */
 #define STM32WBAxx_NUCLEO_BSP_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
 #define STM32WBAxx_NUCLEO_BSP_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
-#define STM32WBAxx_NUCLEO_BSP_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
+#define STM32WBAxx_NUCLEO_BSP_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
 #define STM32WBAxx_NUCLEO_BSP_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define STM32WBAxx_NUCLEO_BSP_VERSION       ((STM32WBAxx_NUCLEO_BSP_VERSION_MAIN << 24U)\
                                             |(STM32WBAxx_NUCLEO_BSP_VERSION_SUB1 << 16U)\
@@ -350,7 +350,9 @@ int32_t BSP_LED_GetState(Led_TypeDef Led);
 int32_t BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode);
 int32_t BSP_PB_DeInit(Button_TypeDef Button);
 int32_t BSP_PB_GetState(Button_TypeDef Button);
+int32_t BSP_PB_SetRisingEdge(Button_TypeDef Button);
 void    BSP_PB_Callback(Button_TypeDef Button);
+void    BSP_PB_RisingCallback(Button_TypeDef Button);
 void    BSP_PB_IRQHandler(Button_TypeDef Button);
 /**
   * @}
