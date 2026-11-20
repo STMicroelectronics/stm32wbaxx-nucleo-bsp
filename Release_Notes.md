@@ -20,6 +20,39 @@ available on STM32WBAxx_Nucleo Kit from STMicroelectronics
 
 # Update History
 
+<label for="collapse-section9" aria-hidden="true">V1.2.2 / 12-October-2026</label>
+<div>
+
+## Main Changes
+
+### Official Release of **STM32CubeWBA** Firmware package supporting **STM32WBA2x**, **STM32WBA5x** and **STM32WBA6x** devices
+
+## Contents
+
+### Official Release of board drivers for **NUCLEO-WBA25CE**, **NUCLEO-WBA55CG** and **NUCLEO-WBA65RI** boards
+
+- **BSP Drivers** are available for the boards :
+  - NUCLEO-WBA55CG (MB1801D-01/MB1803-WBA55CGA-B01)
+  - NUCLEO-WBA65RI (MB1801-USB-D01/MB2130-WBA65RI-A01)
+  - in line with STM32Cube BSP drivers development guidelines (UM2298 - revision 2)
+- Update the generic WBA2 device macro to STM32WBA2xxx instead of STM32WBA25xx
+
+## Known Limitations
+
+- None
+
+## Dependencies
+
+- None
+
+## Notes
+
+- stm32wbaxx_nucleo_conf_template.h file must be copied in user application as
+stm32wbaxx_nucleo_conf.h with optional configuration update
+
+
+</div>
+
 <label for="collapse-section8" aria-hidden="true">V1.2.1 / 03-June-2026</label>
 <div>
 
